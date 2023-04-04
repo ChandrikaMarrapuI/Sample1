@@ -527,3 +527,139 @@ public class NotificationController {
     }
 }
 This is just a basic example of how you could implement a dynamic notification system using Spring Boot, Thymeleaf, and MySQL. You can add more features like real-time notifications, email notifications, etc., based on your requirements.
+
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\NODEJS
+What is Nodejs: Java script runtime env:
+Why express:Framework,to create an CRUD operaitoions*
+
+
+Structure:
+App.js(main file) -> routes(folder)->controller(B.L) ->model(S.DB)
+
+
+
+
+Orders management:
+
+We are going to build orders, when an users is about to fill the cart and going to checkout and submit an order.
+Here checkout will come with the address of the person and also shipping details and how he will pay the order.
+And after LoggedIn,how he will get his data and fill the order data automatically so without letting the user to fill the billing details again.
+In this video we are goint to see, how product is linked with the order.
+In the backend we are going to see how the state is changing for  an particular order.(Delivered,Shipped,Hold and Cancelled).
+
+
+
+1)Orders -> Products?
+2)Status Change -> Backend?
+3)Deleting the order
+4)Calculating Total price of the order.
+5)How the owner checks the total sales
+6)Order count
+
+
+
+*)mongoose is an Object modeling tool -> we can create and manage data in Mongodb.
+*)Structure and parameters of model mongoose -> type, required, unique, lowercase, validate, ref, default.
+*)populate - like filtering the child records for specified colletion.
+*)req.params.id -->params is self defined parameter for receiving request.
+
+
+*****
+ecommerce:
+model ->order.js, product.js, order-item.js, user.js, category.js   (order->orderItem->product)
+routes ->categories.js, users.js, products.js, orders.js 			
+we will generate a Hexstring number for product name and userid
+
+1)orders.js(on submiting the order) - only order ID's and shipping address -POST
+2)Get order details with user data and products in orderItems.  		-GET
+		.populate('user', 'name').sort({'dateOrdered': -1});  //-1 represents newest to oldest dates
+3)orderitems by user ID   -GET
+		.populate('user', 'name')
+			.populate({ 
+				path: 'orderItems', populate: {
+					path : 'product', populate: 'category'} 
+				});
+4)updating order status and delete it.   -PUT
+		orders.js(sending some status to order.js and updates in DB)
+5)Deleting the order		->orders.js
+	deleting the orderitems after deleting the order.
+6)TotalPrice
+		orders.js
+7)Order count
+	
+
+
+Video:
+1)order schema and order item schema
+
+ORDERS TABLE:
+
+id:string
+orderitems:orderitem[]
+shippingAddress1:string
+shippingAddress2:string
+city:string
+zip:string
+country:string
+phone:number
+status:string
+totalPrice:number
+user:User
+dateOrdered:date
+
+OrderItems table:
+
+id:string
+product:Product
+quantity:number
+
+
+
+
+
+updating objects in json requirments.
+update/delete --> response(rep:)-object or message
+Json data?
+
+
+
+
+CRUD - Mongodb
+
+entry point - app.js
+
+1)      npm init -->
+The npm init command is used to create a Node. js project and 
+create a package where the project files will be stored. 
+All the modules you download will be stored in the package.
+
+2)		npm install express
+It is used to build a single page, multipage, and hybrid web application. 
+It's a layer, built on the top of the Node js that helps manage servers and routes.
+
+3)		npm install mongodb
+MongoDB Node. js driver supports database connection, authentication, CRUD operations, and observations
+
+4)		npm install mongoose
+Mongoose acts as a front end to MongoDB.
+Provide programmers with a way to model their data.
+
+5)		npm install nodemon --save
+If we make small changes to the server, then we need to restart the server. If we don't want to restart manually ,
+So by using nodemon package we can do automatically.
+
+6)		npm install -g nodemon --save-dev
+
+npm config get prefix.
+C:\Users\marrach\AppData\Roaming\npm
+
+*)Mongoose Schema plugins: string,number,date,buffer,boolean,mixed,objectID,Array,map,uuid,schema.
+*)Mongoose schema types:(Type is common while declaraing a schema)--> required,default,select,validate,get,set,alias,immutable,transfrom.
+*)mongoClient vs mongoose.connect(advanced):
+	
