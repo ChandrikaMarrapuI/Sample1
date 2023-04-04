@@ -396,3 +396,32 @@ Package.json:
 
 
 )
+
+
+
+
+
+////////////////////////////////////
+
+
+<dependencies>
+  <!-- Spring Boot -->
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+  </dependency>
+  
+  <!-- Thymeleaf -->
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+  </dependency>
+  
+  <!-- MySQL -->
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+  </dependency>
+</dependencies>
+
+
