@@ -663,3 +663,6 @@ C:\Users\marrach\AppData\Roaming\npm
 *)Mongoose schema types:(Type is common while declaraing a schema)--> required,default,select,validate,get,set,alias,immutable,transfrom.
 *)mongoClient vs mongoose.connect(advanced):
 	
+	
+![image](https://user-images.githubusercontent.com/112848114/229802426-39ec6b77-3b24-4d2f-a039-6b5b446e8fa7.png)
+
