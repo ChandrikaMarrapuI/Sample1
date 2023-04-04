@@ -424,4 +424,106 @@ Package.json:
   </dependency>
 </dependencies>
 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Create a Notification entity class:
+less
+Copy code
+@Entity
+@Table(name = "notifications")
+public class Notification {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String message;
+
+    @Column(nullable = false)
+    private Boolean read = false;
+
+    // getters and setters
+}
+Create a NotificationRepository interface that extends JpaRepository:
+csharp
+Copy code
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
+
+    List<Notification> findByReadOrderByCreatedAtDesc(Boolean read);
+}
+Create a NotificationService class:
+typescript
+Copy code
+@Service
+public class NotificationService {
+
+    @Autowired
+    private NotificationRepository notificationRepository;
+
+    public void saveNotification(Notification notification) {
+        notificationRepository.save(notification);
+    }
+
+    public List<Notification> getUnreadNotifications() {
+        return notificationRepository.findByReadOrderByCreatedAtDesc(false);
+    }
+}
+Create a controller that handles requests for displaying notifications:
+kotlin
+Copy code
+@Controller
+public class NotificationController {
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @GetMapping("/notifications")
+    public String showNotifications(Model model) {
+        List<Notification> notifications = notificationService.getUnreadNotifications();
+        model.addAttribute("notifications", notifications);
+        return "notifications";
+    }
+}
+Create a Thymeleaf template for displaying the notifications:
+php
+Copy code
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+</head>
+<body>
+    <h1>Notifications</h1>
+    <ul>
+        <li th:each="notification : ${notifications}">
+            <span th:text="${notification.message}"></span>
+            <a href="#" th:if="${!notification.read}" th:href="@{'/notifications/read/' + ${notification.id}}">Mark as Read</a>
+        </li>
+    </ul>
+</body>
+</html>
+Create a controller that handles marking a notification as read:
+kotlin
+Copy code
+@Controller
+public class NotificationController {
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @GetMapping("/notifications")
+    public String showNotifications(Model model) {
+        List<Notification> notifications = notificationService.getUnreadNotifications();
+        model.addAttribute("notifications", notifications);
+        return "notifications";
+    }
+
+    @GetMapping("/notifications/read/{id}")
+    public String markAsRead(@PathVariable Long id) {
+        Notification notification = notificationService.getNotificationById(id);
+        notification.setRead(true);
+        notificationService.saveNotification(notification);
+        return "redirect:/notifications";
+    }
+}
+This is just a basic example of how you could implement a dynamic notification system using Spring Boot, Thymeleaf, and MySQL. You can add more features like real-time notifications, email notifications, etc., based on your requirements.
