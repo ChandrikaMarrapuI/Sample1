@@ -681,3 +681,410 @@ module Java {
 //        final -class(N-Inheritance),method(N-OR,method can be inherited,N-final word to constructor) and variable(N-M)
 //        super
 }
+
+
+
+package com.example.demo.controller;
+
+ 
+
+import java.util.List;
+
+ 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+ 
+
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.service.EmployeeService;
+
+ 
+
+@Controller
+public class EmployeeController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+
+    @PostMapping("/employee")
+    public Employee addEmployee(@RequestBody Employee employee){
+        return employeeService.saveEmployee(employee);
+    }
+
+ 
+
+         
+
+
+    @GetMapping("/gallemployee")
+    public List<Employee> getAllEmployees(){
+        return employeeService.getAllEmployees();
+    }
+
+    @PutMapping("/update/{id}")
+    public Employee updateEmployee(@RequestBody Employee employee,@PathVariable("id") Long id)
+    {
+        return employeeService.updateEmployee(employee);
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteEmployeeById(@PathVariable("id") Long id)
+    {
+        employeeService.deleteEmployeeById(id);
+        return "Deleted Successfully";
+    }
+
+}
+
+
+package com.example.demo.entity;     import... by Marrapu Chandrika
+Marrapu Chandrika
+12:45 PM
+
+package com.example.demo.entity;
+
+ 
+
+ 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+ 
+
+@Entity
+@Table(name="empdetails")
+public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String first_name;
+
+    @Column
+    private String last_name;
+
+    @Column
+    private String email;
+
+ 
+
+    public Long getId() {
+        return id;
+    }
+
+ 
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+ 
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+ 
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+ 
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+ 
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+ 
+
+    public String getEmail() {
+        return email;
+    }
+
+ 
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+ 
+
+    public Employee(String first_name, String last_name, String email) {
+        super();
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+    }
+
+    public Employee() {}
+
+ 
+
+    
+}
+
+
+package com.example.demo.repository;   impo... by Marrapu Chandrika
+Marrapu Chandrika
+12:46 PM
+
+package com.example.demo.repository;
+
+ 
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+ 
+
+import com.example.demo.entity.Employee;
+
+ 
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Long>{
+
+ 
+
+}
+
+
+package com.example.demo.service;   import ... by Marrapu Chandrika
+Marrapu Chandrika
+12:46 PM
+
+package com.example.demo.service;
+
+ 
+
+import java.util.List;
+
+ 
+
+import com.example.demo.entity.Employee;
+
+ 
+
+
+public interface EmployeeService {
+
+ 
+
+    Employee saveEmployee(Employee employee);
+
+    List<Employee> getAllEmployees();
+
+    Employee getEmployeeById(Long id);
+
+    Employee updateEmployee(Employee employee);
+
+    void deleteEmployeeById(Long id);
+}
+
+
+package com.example.demo.service;   import ... by Marrapu Chandrika
+Marrapu Chandrika
+12:46 PM
+
+package com.example.demo.service;
+
+ 
+
+import java.util.List;
+
+ 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+ 
+
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.EmployeeRepository;
+
+ 
+
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Override
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+ 
+
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+
+    @Override
+    public Employee getEmployeeById(Long id) {
+
+        return employeeRepository.findById(id).get();
+    }
+
+ 
+
+    @Override
+    public Employee updateEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+ 
+
+    @Override
+    public void deleteEmployeeById(Long id) {
+        employeeRepository.deleteById(id);
+
+    }
+
+ 
+
+ 
+
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?> <pro... by Marrapu Chandrika
+Marrapu Chandrika
+12:46 PM
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<parent>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-parent</artifactId>
+<version>2.7.1</version>
+<relativePath/> <!-- lookup parent from repository -->
+</parent>
+<groupId>com.example</groupId>
+<artifactId>Cfood</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>Cfood</name>
+<description>POC Project</description>
+<properties>
+<java.version>17</java.version>
+</properties>
+<dependencies>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+ 
+
+        <dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-devtools</artifactId>
+<scope>runtime</scope>
+<optional>true</optional>
+</dependency>
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<scope>runtime</scope>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-test</artifactId>
+<scope>test</scope>
+</dependency>
+</dependencies>
+
+ 
+
+    <build>
+<plugins>
+<plugin>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-maven-plugin</artifactId>
+</plugin>
+</plugins>
+</build>
+
+ 
+
+</project>
+
+ 
+
+spring.datasource.url=jdbc:mysql://localh... by Marrapu Chandrika
+Marrapu Chandrika
+12:46 PM
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/employeecrud
+
+ 
+
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto = update
+
+ 
+
+server.port=8082  
+
+ 
+
+#spring.datasource.driver-class-name:com.mysql.cj.jdbc.Driver
+#server.port=8082  
+# 
+## Hibernate
+#
+## The SQL dialect makes Hibernate generate better SQL for the chosen database
+#spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+#
+## Hibernate ddl auto (create, create-drop, validate, update)
+#spring.jpa.hibernate.ddl-auto = update
+#
+#logging.level.org.hibernate.SQL=DEBUG
+#logging.level.org.hibernate.type=TRACE?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+
+has context menu
+Compose
