@@ -666,3 +666,18 @@ C:\Users\marrach\AppData\Roaming\npm
 	
 ![image](https://user-images.githubusercontent.com/112848114/229802426-39ec6b77-3b24-4d2f-a039-6b5b446e8fa7.png)
 
+
+
+
+module Java {
+
+
+//        string,substring
+//        special character count
+//        stringbuilder->odd chars combine
+//        join
+//        collections
+//        Method overloading and overriding
+//        final -class(N-Inheritance),method(N-OR,method can be inherited,N-final word to constructor) and variable(N-M)
+//        super
+}
