@@ -1,3 +1,34 @@
+
+@Test
+public void testMarshalSendAndReceiveWithTimeouts() {
+
+   // set up the input parameters
+   String endpoint = "http://example.com/webservice";
+   Object requestPayload = new Object();
+
+   // create an instance of the class that contains the method
+   YourClassName obj = new YourClassName();
+
+   // set up the mock message sender and template
+   MockWebServiceMessageSender mockSender = new MockWebServiceMessageSender();
+   WebServiceTemplate wsTemplate = obj.getWebServiceTemplate();
+   wsTemplate.setMessageSenders(new WebServiceMessageSender[]{mockSender});
+
+   // set up the timeout values
+   String readTimeout = "5";
+   String connectionTimeout = "10";
+
+   // call the method with the timeout values
+   Object response = obj.marshalSendAndReceive(endpoint, requestPayload, readTimeout, connectionTimeout);
+
+   // assert that the message sender was called with the correct timeout values
+   assertEquals(Duration.ofMinutes(Integer.parseInt(readTimeout)), mockSender.getReadTimeout());
+   assertEquals(Duration.ofMinutes(Integer.parseInt(connectionTimeout)), mockSender.getConnectionTimeout());
+
+   // assert that the response is not null
+   assertNotNull(response);
+}
+
 (https://www.youtube.com/watch?v=eYVGoXPq2RA
 1)	CRUDNode+mongodb(mongoose)  RUN as  nodemon run start
 crudModel.js
