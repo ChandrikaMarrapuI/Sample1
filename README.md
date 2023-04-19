@@ -1,4 +1,4 @@
-[# Sample1](https://www.youtube.com/watch?v=eYVGoXPq2RA
+(https://www.youtube.com/watch?v=eYVGoXPq2RA
 1)	CRUDNode+mongodb(mongoose)  RUN as  nodemon run start
 crudModel.js
 const mongoose = require('mongoose')
