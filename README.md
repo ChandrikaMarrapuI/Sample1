@@ -1,5 +1,24 @@
 
 @Test
+public void testAfterPropertiesSet() throws Exception {
+    // Setup
+    String moid = "key1 = value1, key2 = value2, key3 = value3";
+    MyObject myObject = new MyObject();
+    myObject.setMoid(moid);
+
+    // Exercise
+    myObject.afterPropertiesSet();
+
+    // Verify
+    Map<String, String> expectedMap = new HashMap<>();
+    expectedMap.put("KEY1", "value1");
+    expectedMap.put("KEY2", "value2");
+    expectedMap.put("KEY3", "value3");
+    assertEquals(expectedMap, myObject.getMoidVars());
+}
+
+/////////////////////////////////////
+@Test
 public void testMarshalSendAndReceiveWithTimeouts() {
 
    // set up the input parameters
