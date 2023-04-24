@@ -1236,7 +1236,11 @@ CHARACTER CLASSES \d \w \s and. (\d, \w and \s also present their negations with
 
 \d -decimal digit [0-9] 12 abc3 -> 1 2 3
 \D -Non-decimal digit [^0-9] 12ab"c3 -> a b c
-\w -alphanumeric character (digits and alphabets)
-[a-zA-Z0-9 ]
+\w -alphanumeric character (digits and alphabets) [a-zA-Z0-9 ] 12 &" : ic -> 12 c
+\W -Non alphanumeric character [a-zA-Z0-9 ] la2%c -> %
+\s -whitespace [ \t\n\r\f\v] No match -> 1
+\S -any non-whitespace character [^ \t\n\r\f\v]
+
+
  
 
