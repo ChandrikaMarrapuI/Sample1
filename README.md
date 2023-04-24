@@ -1199,10 +1199,44 @@ Compose
 </plugin>
 </plugins>
 </build>
-
- 
-
 </project>
 
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Regx
+
+1) ANCHORS - ^ and $
+^ -starts with
+$ -Ends with
+18
+Eg: ^a...s$ ->five letter word starts and ends with a nd s respectively.
+2) QUANTIFIERS - * + ? and {} -->{x} {x, }{x, y}
+
+-zero or more. abc-> ab abc abcc abccc
++-One or more abc+-> abc abcc abccc
+?-zero or one and like as substring in thestring. abc?-> 123abc736, (not for->aabc, abcC, ab)
+{} -how many times a particular character or qroup should be match.
+a {2,4} ->aa, aaa, aaaa.
+a{4) -> aaaa
+a{3, }-> aaa, aaaa, aaa. ....
+3) OR OPERATOR | or ]
+specifies a set of characters you Wish to match.
+1) [abc] -contains
+abc de ca o/p- 5matches
+2) [a-e] -range of characters contains.
+3) [1-7]
+4) [0-28]
+5) [^abc] -any character except a or b or c.
+
+|-a string should follow by another string.
+a(b|c) ->ab, ac, abc, acb
+
+CHARACTER CLASSES \d \w \s and. (\d, \w and \s also present their negations with \D, \W and \S respectively. )
+
+\d -decimal digit [0-9] 12 abc3 -> 1 2 3
+\D -Non-decimal digit [^0-9] 12ab"c3 -> a b c
+\w -alphanumeric character (digits and alphabets)
+[a-zA-Z0-9 ]
  
 
